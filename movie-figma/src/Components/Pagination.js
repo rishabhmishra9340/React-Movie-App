@@ -1,59 +1,38 @@
-// import React, { useEffect, useState } from 'react'
+import React from "react";
+import Pagination from "@material-ui/lab/Pagination";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 
-// function Pagination({perPageShow,onpagination,total}) {
+const darkTheme = createMuiTheme({
+  palette: {
+    type: "white",
+  },
+});
 
-//  const [counter,setCounter]=useState(1)  
-//  const [numberOfButton]=useState(Math.ceil(total/perPageShow))
-//  //use Effect
-//  useEffect(()=>{
-//   const value=perPageShow*counter
-// //   console.log("start :",value-perPageShow)
-// //   console.log("end",value);
-// onpagination(value-perPageShow,value)
-//  },[counter]) 
- 
-//  // prev and next button 
-//  const onClickbutton=(type)=>{
-//      if(type==="prev"){
-//       if( counter===1){
-//           setCounter(1)
-//       }else{
-//           setCounter(counter-1)
-//       }
-//      }
-//      if(type==="next"){
-//         if(Math.ceil(total/perPageShow)===counter){
-//             setCounter(counter)
-//         }else{
-//             setCounter(counter+1)
-//         }
-//        }
-//  }
-//   return (
-//       <>
-// <div className='d-flex justify-content-center'>
-// <nav aria-label="Page navigation example">
-//   <ul class="pagination">
-//     <li class="page-item"><a class="page-link" href="!#"  onClick={()=>onClickbutton("prev")}>Previous</a></li>
-//     {new Array(numberOfButton).fill("").map((ele,index)=>{
-//         return (
-//             <li className={`page-item ${index+1===counter?"active":null}`}><a className="page-link" href="!#" onClick={()=>{setCounter(index+1)}}>{index+1}</a></li>
-//         )
-       
-//         })
-//     }
-    
-     
-//     <li class="page-item"><a class="page-link" href="!#"  onClick={()=>onClickbutton("next")}>Next</a></li>
-//   </ul>
-// </nav>
-//     </div>
+export default function CPagination({ setPage, numOfPages = 10 }) {
+  // Scroll to top when page changes
+  const handlePageChange = (page) => {
+    setPage(page);
+    window.scroll(0, 0);
+  };
 
-
-   
-//       </>
-    
-//   )
-// }
-
-// export default Pagination
+  return (
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        marginTop: 10,
+      }}
+    >
+      <ThemeProvider theme={darkTheme}>
+        <Pagination
+          onChange={(e) => handlePageChange(e.target.textContent)}
+          count={numOfPages}
+          color="primary"
+          hideNextButton
+          hidePrevButton
+        />
+      </ThemeProvider>
+    </div>
+  );
+}

@@ -1,4 +1,4 @@
-
+import CPagination from "./Pagination";
 import React,{useState} from "react";
 import { useEffect } from "react";
 import Card from "./Card";
@@ -11,12 +11,14 @@ const Main=()=>{
     const [movieData,setData]=useState([]);
     const [url_set,setUrl]=useState(url);
     const [search,setSearch]=useState();
+   
+
+
     useEffect(()=>{
         fetch(url_set).then(res=>res.json()).then(data=>{
             setData(data.results);
         });
     },[url_set])
-
    
     const searchMovie=(evt)=>{
        
@@ -40,8 +42,9 @@ const Main=()=>{
                     </div>
                 
             </div>
+            <div><h2>Trending</h2></div>
             <div className="container">
-
+            
                 
                 {
                     (movieData.length==0)?<p className="notfound">Not Found</p>: movieData.map((res,pos)=>{
@@ -51,6 +54,7 @@ const Main=()=>{
                     })
                 }
             </div>
+           
         </>
     )
 }
